@@ -101,6 +101,7 @@ def calculate_countries(populations):
         if  int(populations[i][3])>0:
             res.add(populations[i][0])
     countries_list = list(res)
+    countries_list.sort()
     return countries_list
 ##############################################################################################
 
