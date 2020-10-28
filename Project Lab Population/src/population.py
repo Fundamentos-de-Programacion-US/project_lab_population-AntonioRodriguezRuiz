@@ -50,7 +50,7 @@ FUNCTIONS THAT ARE PART OF THE EXERCISE:
 
 '''
 import csv
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 from collections import namedtuple
 
 Registro = namedtuple('Registro', 'nombre, codigo, año, censo')
@@ -96,7 +96,12 @@ def calculate_countries(populations):
     for which there is at least one population data.
     The output list will not contain repeating elements.
     '''
-    
+    res=set()
+    for i in range(0, len(populations)-1):
+        if  int(populations[i][3])>0:
+            res.add(populations[i][0])
+    countries_list = list(res)
+    return countries_list
 ##############################################################################################
 
 ############################################################################################## 
@@ -114,13 +119,16 @@ def filter_by_country (towns, country):
     population of the country that is passed as a parameter. The country can be indicated
     either giving your full name, or giving your code.
     '''
-    
-        
+    res=list()
+    for i in range(0, len(towns)-1):
+        if str(towns[i][0])==country:
+            res.append((towns[i][2], towns[i][3]))
+    return res
 ##############################################################################################
 
 ############################################################################################## 
 def filter_by_countries_and_year (populations, year, countries):
-   '''Select the tuples corresponding to a set of countries of a specific year
+    '''Select the tuples corresponding to a set of countries of a specific year
     
     INPUT:
        - populations: list of tuples (name, code, year, census) -> [(str, str, int, int)]
@@ -136,6 +144,13 @@ def filter_by_countries_and_year (populations, year, countries):
     included in the countries collection
     '''
     
+    res=list()
+    for i in range(0, len(countries)-1):
+        for j in range(0, len(populations)-1):
+            if countries[i]==populations[j][0] and int(populations[j][2])==year:
+                res.append((countries[i],populations[j][3]))
+    return res
+                
 ##############################################################################################
 
 ###############################################################################################
