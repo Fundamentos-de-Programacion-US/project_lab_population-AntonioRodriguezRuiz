@@ -45,14 +45,14 @@ def test_filter_by_countries_and_year():
     population_2016 = filter_by_countries_and_year(POPULATIONS, 2016, countries)
     print("Read " , len (population_2016), "data of year 2016 for countries", countries)
     show_enumerated(population_2016)
-'''     
+   
 def test_show_population_evolution():
     show_population_evolution(POPULATIONS, "Spain")
 
 def test_show_comparative_countries_year():
     show_comparative_countries_year(POPULATIONS, 2016,["Spain","Portugal","France","Mexico","China"])
 
-'''        
+       
 ################################################################
 #  Main Program
 ################################################################
@@ -63,5 +63,5 @@ print(POPULATIONS[1][3])
 test_calculate_countries()
 test_filter_by_country()
 test_filter_by_countries_and_year()
-#test_show_population_evolution()
-#test_show_comparative_countries_year()
+test_show_population_evolution()
+test_show_comparative_countries_year()

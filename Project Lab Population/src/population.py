@@ -50,7 +50,7 @@ FUNCTIONS THAT ARE PART OF THE EXERCISE:
 
 '''
 import csv
-#from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 from collections import namedtuple
 
 Registro = namedtuple('Registro', 'nombre, codigo, año, censo')
@@ -97,7 +97,7 @@ def calculate_countries(populations):
     The output list will not contain repeating elements.
     '''
     res=set()
-    for i in range(0, len(populations)-1):
+    for i in range(0, len(populations)):
         if  int(populations[i][3])>0:
             res.add(populations[i][0])
     countries_list = list(res)
@@ -121,7 +121,7 @@ def filter_by_country (towns, country):
     either giving your full name, or giving your code.
     '''
     res=list()
-    for i in range(0, len(towns)-1):
+    for i in range(0, len(towns)):
         if str(towns[i][0])==country:
             res.append((towns[i][2], towns[i][3]))
     return res
@@ -146,8 +146,8 @@ def filter_by_countries_and_year (populations, year, countries):
     '''
     
     res=list()
-    for i in range(0, len(countries)-1):
-        for j in range(0, len(populations)-1):
+    for i in range(0, len(countries)):
+        for j in range(0, len(populations)):
             if countries[i]==populations[j][0] and int(populations[j][2])==year:
                 res.append((countries[i],populations[j][3]))
     return res
@@ -156,7 +156,7 @@ def filter_by_countries_and_year (populations, year, countries):
 
 ###############################################################################################
 def show_population_evolution (populations, country):
-   '''Generates a curve with the evolution of the population of a country. The country can
+    '''Generates a curve with the evolution of the population of a country. The country can
     be given as your full name or by your code.
     
     INPUT:
@@ -177,7 +177,25 @@ def show_population_evolution (populations, country):
         plt.plot (l_years, l_inhabitants)
         plt.show ()
     '''
+    #We can use the previous function to make a list of tulpes, each of the one contains the population 
+    #each year of one country form 1960 to 2016
+
+    Country_census = filter_by_country (populations, country)
+    Year = list()
+    Inhabitants = list()
     
+    #Now we add the respective values ( Country_census = [(year, inhabitants)...] ) to both year and inhabitant list
+    
+    for i in range(0, len(Country_census)):
+        Year.append(Country_census[i][0])
+        Inhabitants.append(Country_census[i][1])
+
+    #Once we have done that we can now plot a graph that represents the evolutiuon of the population of one country
+
+    plt.title('Evolution of ' + country + ' population. (In Millions)')
+    plt.plot(Year, Inhabitants)
+    plt.show()
+    del Country_census
             
 ###############################################################################################
 
@@ -210,6 +228,23 @@ def show_comparative_countries_year (populations, year, countries):
         plt.show ()
     '''
     # We calculate the list of populations of the given year for the countries in the list
-   
+    
+    Population_comparison = filter_by_countries_and_year (populations, year, countries)
+
+    #We now separate the countries from its year
+
+    Inhabitants = list()
+    for i in range(0, len(Population_comparison)):
+        Inhabitants.append(int(Population_comparison[i][1]))
+    
+    plt.title('Comparison of the countries bellow population in ' + str(year) + ' (In tens of million)')
+    index = range(len(countries))
+    plt.bar(index, Inhabitants)
+    plt.xticks(index, countries, fontsize = 8)
+    plt.show()
+    print(index)
+    print(Inhabitants)
+    print(Population_comparison)
+    for i in range(0, 5): print(i)
     
 ###############################################################################################
