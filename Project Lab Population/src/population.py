@@ -242,9 +242,5 @@ def show_comparative_countries_year (populations, year, countries):
     plt.bar(index, Inhabitants)
     plt.xticks(index, countries, fontsize = 8)
     plt.show()
-    print(index)
-    print(Inhabitants)
-    print(Population_comparison)
-    for i in range(0, 5): print(i)
-    
+
 ###############################################################################################
